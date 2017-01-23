@@ -14,7 +14,7 @@ var express = require('express'),
 		// console.log('req.query.words: ' + req.query.words);
 		var reqQueryWords = req.query.words.split(' ');
 		var newReqQueryWords = [];
-		// var customCount = 0;
+		var customCount = 0;
 		reqQueryWords.forEach(function(x){
 			if(x.length>0){
 				newReqQueryWords.push(x);
