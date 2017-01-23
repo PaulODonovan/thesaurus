@@ -69,6 +69,7 @@ var express = require('express'),
 				});
 			}
 		});
+		console.log('req.headers.host: ' + req.headers.host);
 	});
 
 app.use('/', router);
