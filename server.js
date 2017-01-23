@@ -7,7 +7,7 @@ var express = require('express'),
     synsFound = [],
     totalSynsFound = [];
     router = new express.Router();
-	app.set('port', process.env.PORT || 3500);
+	app.set('port', process.env.PORT || 80);
 	router.get('/lookup', cors({credentials: true, origin: true}), function(req, res) {
 		totalSynsFound = [];
 		// console.log('server called');
