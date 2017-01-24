@@ -7,11 +7,12 @@ var express = require('express'),
     synsFound = [],
     totalSynsFound = [];
     router = new express.Router();
-	app.set('port', process.env.PORT || 80);
+	app.set('port', process.env.PORT || 3500);
+
 	router.get('/lookup', cors({credentials: true, origin: true}), function(req, res) {
 		totalSynsFound = [];
-		// console.log('server called');
-		// console.log('req.query.words: ' + req.query.words);
+		console.log('server called');
+		console.log('req.query.words: ' + req.query.words);
 		var reqQueryWords = req.query.words.split(' ');
 		var newReqQueryWords = [];
 		var customCount = 0;
@@ -23,7 +24,7 @@ var express = require('express'),
 		reqQueryWords = newReqQueryWords;
 		// console.log('reqQueryWords: ' + reqQueryWords);
 		var reqQueryWordsLen = reqQueryWords.length;
-		// console.log('reqQueryWordsLen: ' + reqQueryWordsLen);
+		console.log('reqQueryWordsLen: ' + reqQueryWordsLen);
 		reqQueryWords.forEach(function(w){
 			if(w.length>0){
 				Lemmer.lemmatize(w, function(err, word){
@@ -36,7 +37,6 @@ var express = require('express'),
 						synsFound = thesaurus.find(word);
 						// console.log('synsFound.length for lemma: ' + synsFound.length);
 						if(synsFound.length===0){
-							// synsFound = thesaurus.find(w);
 							synsFound = thesaurus.find(w);
 							// console.log('synsFound.length for w: ' + synsFound.length);
 							if(synsFound.length===0){
@@ -53,15 +53,9 @@ var express = require('express'),
 					}else{
 						// console.log('!word.length>0');
 					}
-					// customCount++;
-					// // console.log('customCount: ' + customCount);
-					// var perCntDone = customCount / reqQueryWordsLen;
-					// perCntDone = (Math.floor(perCntDone*100) + '%');
-					// console.log(perCntDone);
+					customCount++;
 					if(customCount===reqQueryWordsLen){		
-						// console.log('got here!!!!!!!!!!!!!!!!!!!!!!!!');
 						if(totalSynsFound.length>0){
-							// console.log('totalSynsFound.length: ' + totalSynsFound.length);
 							sendBackSyns(totalSynsFound, res);
 						}
 					}
@@ -69,7 +63,6 @@ var express = require('express'),
 				});
 			}
 		});
-		console.log('req.headers.host: ' + req.headers.host);
 	});
 
 app.use('/', router);
